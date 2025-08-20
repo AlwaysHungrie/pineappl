@@ -37,7 +37,7 @@ export const COLS = 8;
 
 export const PADDING = 16;
 const MAX_SQUARE_SIZE = 64;
-const SCREEN_HEIGHT_PERCENTAGE = 0.4;
+const SCREEN_HEIGHT_PERCENTAGE = 0.45;
 
 export function GameProvider({ children }: GameProviderProps) {
   const [isClient, setIsClient] = useState(false);
@@ -54,8 +54,12 @@ export function GameProvider({ children }: GameProviderProps) {
   // Calculate square size based on screen constraints
   const squareSize = screen
     ? Math.min(
+        // Width constraint: ensure grid fits within screen width
         (screen.width - PADDING * 2) / COLS,
-        (screen.height * SCREEN_HEIGHT_PERCENTAGE) / ROWS,
+        // Height constraint: ensure grid height doesn't exceed percentage of screen height
+        // Account for grid's own padding (p-1 = 4px) and ensure total height fits
+        (screen.height * SCREEN_HEIGHT_PERCENTAGE - PADDING * 2 - 8) / ROWS,
+        // Maximum size constraint
         MAX_SQUARE_SIZE
       )
     : 0;

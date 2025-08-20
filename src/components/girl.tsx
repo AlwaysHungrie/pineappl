@@ -41,6 +41,8 @@ export default function Girl() {
   const width = squareSize * SCALE * 0.55;
   const height = squareSize * SCALE * 0.9;
 
+  const spriteSheetScale = width / ORIGINAL_WIDTH;
+
   const animationPositionRef = useRef<number>(0);
   const lastFrameTimePositionRef = useRef<number>(0);
 
@@ -122,15 +124,17 @@ export default function Girl() {
         <Image
           src="/sprite-sheet.png"
           alt="girl"
-          width={SPRITE_SHEET_WIDTH * SCALE}
-          height={SPRITE_SHEET_HEIGHT * SCALE}
+          width={SPRITE_SHEET_WIDTH * spriteSheetScale}
+          height={SPRITE_SHEET_HEIGHT * spriteSheetScale}
           className="max-w-none"
           draggable={false}
           style={{
             transform: `translateX(${
-              -frameColumn * ORIGINAL_WIDTH * SCALE
+              -frameColumn * ORIGINAL_WIDTH * spriteSheetScale
             }px) translateY(${
-              -SPRITE_SHEET_DIRECTIONS[direction] * ORIGINAL_HEIGHT * SCALE
+              -SPRITE_SHEET_DIRECTIONS[direction] *
+              ORIGINAL_HEIGHT *
+              spriteSheetScale
             }px)`,
           }}
         />

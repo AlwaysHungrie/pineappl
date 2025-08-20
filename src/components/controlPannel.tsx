@@ -9,7 +9,7 @@ export default function ControlPanel() {
   };
 
   return (
-    <div>
+    <div className="h-[30%] bg-red-500 w-full mt-8">
       <button onClick={() => handleMove("left")}>Left</button>
       <button onClick={() => handleMove("right")}>Right</button>
       <button onClick={() => handleMove("up")}>Up</button>

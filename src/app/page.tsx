@@ -10,7 +10,7 @@ export default function Home() {
     return null;
   }
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen max-w-screen-sm mx-auto">
       <Ground />
       <ControlPanel />
     </div>
