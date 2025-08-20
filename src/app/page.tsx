@@ -1,3 +1,9 @@
+import Ground from "@/components/ground/ground";
+
 export default function Home() {
-  return <div>Hello World</div>;
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <Ground />
+    </div>
+  )
 }
