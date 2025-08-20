@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import { GameProvider } from "@/contexts/gameContext";
+import { CharacterProvider } from "@/contexts/characterContext";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -32,7 +34,9 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${ibmPlexMono.variable} antialiased`}
       >
-        {children}
+        <GameProvider>
+          <CharacterProvider>{children}</CharacterProvider>
+        </GameProvider>
       </body>
     </html>
   );
