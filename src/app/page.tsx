@@ -53,8 +53,8 @@ export default function Home() {
 
         <div className="flex gap-2 mt-4 text-gray-500 items-baseline">
           {[
-            { label: "Contribute", href: "https://github.com" },
-            { label: "Privacy Policy", href: "/privacy-policy" },
+            { label: "Contribute", href: "https://github.com/AlwaysHungrie/pineappl" },
+            { label: "Terms of use", href: "/terms-of-use" },
           ].map((item, index) => (
             <Fragment key={item.label}>
               {index > 0 && <span>|</span>}
