@@ -1,6 +1,6 @@
 import ReactMarkdown from "react-markdown";
 
-const email = "<<@todo: insert email address>>";
+export const email = "<<@todo: insert email address>>";
 
 const usagePolicyShort = `# Terms of Use
 
@@ -8,7 +8,7 @@ By using pineappl.xyz, you agree to the following terms of use:
 
 ## Disclaimer
 
-All users are required to verify the information available on this site. This website is not responsible for any mistakes or losses incurred due to information provided on this site.
+All users are required to verify the information available on this site. This website is not responsible for any mistakes or losses incurred due to information provided.
 
 Certain activities on this site require children to be supervised by an adult and may involve external resources from the internet. Supervising adults are solely responsible for ensuring the safety of children and their accounts during these activities.
 
@@ -16,7 +16,7 @@ All games and content on this site are subject to regular updates, improvements,
 
 ## Usage
 
-**This website requires a purchase to be used.**
+**This website requires a purchase inorder to be used.**
 When making a purchase, you will be asked to provide your email address.
 This email address will be the only way to identify you and your account. Losing access to your email address will result in loss of access to your account.
 

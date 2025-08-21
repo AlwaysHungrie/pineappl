@@ -17,6 +17,11 @@ export default function Home() {
         </div>
       </div>
 
+      {/* purchase */}
+      <div className="absolute top-4 right-4 m-2 z-10">
+        <PrimaryButton className="text-lg py-4 px-4" href="/purchase">BUY NOW</PrimaryButton>
+      </div>
+
       {/* content */}
       <div className="py-10 flex-1 flex flex-col gap-4 items-center justify-center">
         <div className="flex gap-2 w-full items-end justify-center">

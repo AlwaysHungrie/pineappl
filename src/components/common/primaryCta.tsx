@@ -17,19 +17,27 @@ export default function PrimaryButton({
     <Button
       variant="default"
       size="default"
-      className={cn("font-anton text-4xl cursor-pointer shadow-md p-0", className)}
+      className="font-anton text-4xl cursor-pointer shadow-md p-0"
       onClick={onClick}
       asChild={!!href}
     >
       {href ? (
         <Link
-          className="px-4 py-8 flex items-center justify-center"
+          className={cn(
+            "px-4 py-8 flex items-center justify-center",
+            className
+          )}
           href={href}
         >
           {children}
         </Link>
       ) : (
-        <div className="px-4 py-8 flex items-center justify-center">
+        <div
+          className={cn(
+            "px-4 py-8 flex items-center justify-center",
+            className
+          )}
+        >
           {children}
         </div>
       )}
