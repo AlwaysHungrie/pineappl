@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, IBM_Plex_Mono } from "next/font/google";
+import { Poppins, IBM_Plex_Mono, Anton } from "next/font/google";
 import "./globals.css";
 import { GameProvider } from "@/contexts/gameContext";
 import { CharacterProvider } from "@/contexts/characterContext";
@@ -16,9 +16,15 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600", "700"],
 });
 
+const anton = Anton({
+  variable: "--font-anton",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
 export const metadata: Metadata = {
-  title: "Pineappl for Myra",
-  description: "A modern, post-AI introduction to programming.",
+  title: "Pineappl for Myra - A modern, post-AI introduction to programming.",
+  description: "An introduction to programming in the modern, post-AI world.",
   icons: {
     icon: "/favicon.svg",
   },
@@ -32,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${ibmPlexMono.variable} antialiased`}
+        className={`${poppins.variable} ${ibmPlexMono.variable} ${anton.variable} antialiased`}
       >
         <GameProvider>
           <CharacterProvider>{children}</CharacterProvider>

@@ -30,8 +30,10 @@ const SCALE = 1.6;
 const X_CORRECTION = 3;
 const Y_CORRECTION = -4;
 
-export default function Girl() {
-  const { squareSize } = useGame();
+export default function Girl({ fixedWidth }: { fixedWidth?: number }) {
+  const { squareSize: _squareSize } = useGame();
+  const squareSize = fixedWidth || _squareSize;
+
   const { position, setPosition, deltaXRef, deltaYRef } = useCharacter();
 
   const [frameColumn, setFrameColumn] = useState(0);
@@ -108,7 +110,7 @@ export default function Girl() {
       style={{
         height: `${squareSize}px`,
         width: `${squareSize}px`,
-        transform: `translate(${position.x + X_CORRECTION}px, ${
+        transform: fixedWidth ? 'none' : `translate(${position.x + X_CORRECTION}px, ${
           position.y + Y_CORRECTION
         }px)`,
       }}
@@ -122,7 +124,7 @@ export default function Girl() {
         }}
       >
         <Image
-          src="/sprite-sheet.png"
+          src="/girl/sprite-sheet.png"
           alt="girl"
           width={SPRITE_SHEET_WIDTH * spriteSheetScale}
           height={SPRITE_SHEET_HEIGHT * spriteSheetScale}

@@ -1,0 +1,47 @@
+.pineapple {
+  animation: pineapple-bounce 1s ease-in-out infinite;
+}
+
+.pineapple .pineapple-mesh {
+  animation: pineapple-rotate 10s linear infinite;
+}
+
+.pineapple .pineapple-shadow {
+  animation: pineapple-shadow 1s linear infinite;
+}
+
+@keyframes pineapple-rotate {
+  from {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(-22.5%) translateY(-4%);
+  }
+  to {
+    transform: translateX(-45%) translateY(0%);
+  }
+}
+
+@keyframes pineapple-bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes pineapple-shadow {
+  0% {
+    transform: scaleX(0.8) translateY(0);
+  }
+  50% {
+    transform: scaleX(1.1) translateY(5px);
+  }
+  100% {
+    transform: scaleX(0.8) translateY(0);
+  }
+}
