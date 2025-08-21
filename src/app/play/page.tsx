@@ -1,33 +1,7 @@
-import ChapterItem, { Chapter } from "@/components/chapterItem";
+import ChapterItem, { Chapter } from "@/components/chapters/chapterItem";
+import Chapters from "@/components/chapters/chapters";
 import Navbar from "@/components/common/navbar";
 import { BellRingIcon } from "lucide-react";
-
-const CHAPTERS: Chapter[] = [
-  {
-    id: 0,
-    title: "Breakfast",
-    slug: "breakfast",
-    description:
-      "Myra has just woken up. There is a loud noise coming from somewhere. It's her rumbling tummy. Help her find some delicious pineapples before the noise wakes up all the birds in her garden.",
-    levels: 11,
-  },
-  {
-    id: 1,
-    title: "Happy birthday Myra!",
-    slug: "happy-birthday",
-    description:
-      "It's Myra's birthday today. Let's wish her a happy birthday by helping her complete a special song.",
-    levels: 13,
-  },
-  {
-    id: 2,
-    title: "Art Class",
-    slug: "art-class",
-    description:
-      "Myra is an art class today. And guess what? yes she is hungry. Help her find some delicious pineapples before the paint dries.",
-    levels: 10,
-  },
-];
 
 export default function PlayPage() {
   return (
@@ -54,11 +28,7 @@ export default function PlayPage() {
 
       {/* Main Content */}
       {/* Chapters grid - 2x2 layout */}
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mt-12 max-w-screen-xl mx-auto">
-        {CHAPTERS.map((chapter) => (
-          <ChapterItem key={chapter.id} chapter={chapter} />
-        ))}
-      </div>
+      <Chapters />
 
       {/* Bottom spacing */}
       <div className="w-full text-center gap-2 text-gray-600 hover:text-gray-800 transition-colors mt-12 flex items-center justify-center">

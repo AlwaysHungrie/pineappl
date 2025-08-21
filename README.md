@@ -1,6 +1,6 @@
 # Pineappl for Myra
 
-An introduction to programming in modern, post-AI world. 
+An introduction to programming in the modern, post-AI world. 
 This is a collection psuedo prompt-coding based exercises inspired by [Code.org](https://code.org/en-US)
 
 # Levels Plan (working)
