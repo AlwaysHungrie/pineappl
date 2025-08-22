@@ -1,6 +1,39 @@
-import Link from "next/link";
+"use client";
 
-export default function Navbar() {
+import Link from "next/link";
+import { useState } from "react";
+import { Chapter } from "../chapters/chapterItem";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "../ui/drawer";
+import { Button } from "../ui/button";
+import { ArrowLeft } from "lucide-react";
+
+export default function Navbar({
+  chapter,
+  sectionId,
+  currentLevel,
+}: {
+  chapter?: Chapter;
+  sectionId?: string;
+  currentLevel?: number;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleLevelClick = (levelIndex: number) => {
+    // Navigate to the specific level
+    if (sectionId && chapter) {
+      window.location.href = `/chapters/${sectionId}/${chapter.chapterId}/${levelIndex}`;
+    }
+  };
+
   return (
     <header
       className="sticky top-0 z-50 w-full bg-white"
@@ -28,6 +61,71 @@ export default function Navbar() {
             <div className="text-lg md:text-xl -mt-1">Myra</div>
           </div>
         </Link>
+        {chapter && (
+          <div className="flex items-center gap-2 ml-auto">
+            <Drawer direction="right" open={isOpen} onOpenChange={setIsOpen}>
+              <DrawerTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="text-gray-700 hover:text-gray-800 transition-colors cursor-pointer"
+                >
+                  Menu
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent className="max-w-lg md:max-w-sm p-4" style={{
+                width: "90%",
+              }}>
+                <div className="mx-auto w-full flex flex-col h-full">
+                  <DrawerHeader>
+                    <Button
+                      variant="outline"
+                      className="mb-4"
+                      asChild
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <Link href="/chapters" className="justify-start">
+                        <ArrowLeft className="mr-1" />
+                        <span className="w-full text-center">Back to chapter select</span>
+                        <ArrowLeft className="mr-1 opacity-0" />
+                      </Link>
+                    </Button>
+                    <DrawerTitle className="text-2xl font-anton">
+                      {chapter.title}
+                    </DrawerTitle>
+                    <DrawerDescription className="text-gray-600">
+                      Select a level to play
+                    </DrawerDescription>
+                  </DrawerHeader>
+                  <div className="p-4">
+                    <div className="grid grid-cols-5 gap-2">
+                      {Array.from({ length: chapter.levels }).map(
+                        (_, index) => (
+                          <Button
+                            key={index}
+                            variant="outline"
+                            className={`w-12 h-12 rounded-full font-anton text-lg hover:bg-orange-100 hover:border-orange-300 transition-colors ${
+                              currentLevel === index + 1
+                                ? "bg-orange-100 border-orange-300"
+                                : ""
+                            }`}
+                            onClick={() => handleLevelClick(index + 1)}
+                          >
+                            {index + 1}
+                          </Button>
+                        )
+                      )}
+                    </div>
+                  </div>
+                  <DrawerFooter className="mt-auto">
+                    <DrawerClose asChild>
+                      <Button className="cursor-pointer" variant="outline">Close Menu</Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </div>
+              </DrawerContent>
+            </Drawer>
+          </div>
+        )}
       </div>
     </header>
   );

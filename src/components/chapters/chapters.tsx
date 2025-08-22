@@ -21,7 +21,7 @@ export default function Chapters() {
 
   return (
     <div className="flex flex-col gap-8 mt-12">
-      {SECTIONS.map(({ title, chapters }, index) => {
+      {SECTIONS.map(({ sectionId, title, chapters }, index) => {
         const isOpen = openSection === index;
         return (
           <div
@@ -35,7 +35,7 @@ export default function Chapters() {
           >
             <div className="w-full max-w-screen-xl mx-auto">
               <div className="flex items-center gap-4 p-6">
-                <div className="flex items-center justify-center w-16 h-16 rounded-2xl text-lg font-bold bg-gradient-to-br from-orange-400 to-orange-600/10 text-white">
+                <div className="flex items-center justify-center w-16 h-16 rounded-2xl text-lg font-bold bg-gradient-to-tr from-orange-400 to-primary text-white">
                   {index + 1}
                 </div>
                 <h2 className="text-3xl text-gray-900 font-bold flex-1">
@@ -57,7 +57,11 @@ export default function Chapters() {
               >
                 <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mb-8 px-6 pb-6">
                   {chapters.map((chapter) => (
-                    <ChapterItem key={chapter.chapterIndex} chapter={chapter} />
+                    <ChapterItem
+                      sectionId={sectionId}
+                      key={chapter.chapterIndex}
+                      chapter={chapter}
+                    />
                   ))}
                 </div>
               </div>

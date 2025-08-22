@@ -14,9 +14,17 @@ export interface Chapter {
   isComingSoon: boolean;
 }
 
-export default function ChapterItem({ chapter }: { chapter: Chapter }) {
-  const { title, description, levels, isComingSoon } = chapter;
+export default function ChapterItem({
+  sectionId,
+  chapter,
+}: {
+  sectionId: string;
+  chapter: Chapter;
+}) {
+  const { title, description, levels, isComingSoon, chapterId } = chapter;
   const isCompleted = false;
+
+  const firstIncompleteLevel = 1;
 
   return (
     <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-orange-400/5 to-yellow-400/5 shadow-lg">
@@ -42,7 +50,12 @@ export default function ChapterItem({ chapter }: { chapter: Chapter }) {
               Coming Soon
             </Button>
           ) : (
-            <PrimaryButton className="h-20 text-4xl">PLAY</PrimaryButton>
+            <PrimaryButton
+              href={`/chapters/${sectionId}/${chapterId}/${firstIncompleteLevel}`}
+              className="text-4xl px-3 py-1"
+            >
+              PLAY
+            </PrimaryButton>
           )}
         </div>
 
@@ -56,9 +69,12 @@ export default function ChapterItem({ chapter }: { chapter: Chapter }) {
           {Array.from({ length: levels }).map((_, index) => (
             <div key={index} className="flex items-center">
               {index > 0 && <div className="w-4 h-1 bg-gray-700/10 mt-1.5" />}
-              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-sm font-medium mt-2">
+              <Link
+                href={`/chapters/${sectionId}/${chapterId}/${index + 1}`}
+                className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-sm font-medium mt-2 hover:scale-125 transition-all duration-300"
+              >
                 {index + 1}
-              </div>
+              </Link>
             </div>
           ))}
         </div>

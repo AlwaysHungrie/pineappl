@@ -46,7 +46,7 @@ export default function Home() {
           Let's find some pineapples for her!
         </div>
 
-        <PrimaryButton href="/play">Let's go!</PrimaryButton>
+        <PrimaryButton href="/chapters">Let's go!</PrimaryButton>
       </div>
 
       {/* footer */}
