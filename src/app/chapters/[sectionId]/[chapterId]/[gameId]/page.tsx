@@ -24,7 +24,7 @@ export default function Home() {
   )?.chapters.find((chapter) => chapter.chapterId === chapterId);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#fffbea] via-[#FFEAEA] to-[#fff7ea]">
       <Navbar
         chapter={chapter}
         sectionId={sectionId}

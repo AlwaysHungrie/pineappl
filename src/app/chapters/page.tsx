@@ -11,7 +11,7 @@ export default function PlayPage() {
 
       {/* Hero Section */}
       <div className="p-4 flex flex-col gap-4">
-        <div className="w-full text-right gap-2 text-gray-600 hover:text-gray-800 transition-colors">
+        <div className="w-full text-right gap-2 text-gray-600 hover:text-gray-800 transition-colors text-sm md:text-base">
           Your progress will be tracked only on this device
         </div>
 
@@ -31,10 +31,10 @@ export default function PlayPage() {
       <Chapters />
 
       {/* Bottom spacing */}
-      <div className="w-full text-center gap-2 text-gray-600 hover:text-gray-800 transition-colors mt-12 flex items-center justify-center">
-        <BellRingIcon className="w-4 h-4" />
+      <p className="w-full text-center text-gray-600 hover:text-gray-800 transition-colors mt-8 md:mt-12 px-4">
+        <BellRingIcon className="w-4 h-4 mr-1 flex-shrink-0 inline-block" />
         <span>Remember to keep coming back for more chapters!</span>
-      </div>
+      </p>
     </div>
   );
 }

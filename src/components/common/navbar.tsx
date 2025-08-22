@@ -67,28 +67,25 @@ export default function Navbar({
               <DrawerTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="text-gray-700 hover:text-gray-800 transition-colors cursor-pointer"
+                  className="text-gray-700 hover:text-gray-800 transition-colors cursor-pointer md:text-lg"
                 >
                   Menu
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="max-w-lg md:max-w-sm p-4" style={{
-                width: "90%",
-              }}>
+              <DrawerContent
+                className="max-w-lg md:max-w-sm p-4"
+                style={{
+                  width: "90%",
+                }}
+              >
                 <div className="mx-auto w-full flex flex-col h-full">
                   <DrawerHeader>
-                    <Button
-                      variant="outline"
-                      className="mb-4"
-                      asChild
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <Link href="/chapters" className="justify-start">
-                        <ArrowLeft className="mr-1" />
-                        <span className="w-full text-center">Back to chapter select</span>
-                        <ArrowLeft className="mr-1 opacity-0" />
-                      </Link>
-                    </Button>
+                    <DrawerClose asChild>
+                      <Button className="cursor-pointer mb-4" variant="outline">
+                        Close Menu
+                      </Button>
+                    </DrawerClose>
+
                     <DrawerTitle className="text-2xl font-anton">
                       {chapter.title}
                     </DrawerTitle>
@@ -117,9 +114,19 @@ export default function Navbar({
                     </div>
                   </div>
                   <DrawerFooter className="mt-auto">
-                    <DrawerClose asChild>
-                      <Button className="cursor-pointer" variant="outline">Close Menu</Button>
-                    </DrawerClose>
+                    <Button
+                      variant="outline"
+                      asChild
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <Link href="/chapters" className="justify-start">
+                        <ArrowLeft className="mr-1" />
+                        <span className="w-full text-center">
+                          Back to chapter select
+                        </span>
+                        <ArrowLeft className="mr-1 opacity-0" />
+                      </Link>
+                    </Button>
                   </DrawerFooter>
                 </div>
               </DrawerContent>

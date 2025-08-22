@@ -28,9 +28,9 @@ export default function ChapterItem({
 
   return (
     <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-orange-400/5 to-yellow-400/5 shadow-lg">
-      <div className="px-8 pt-8 pb-12">
+      <div className="px-4 md:px-8 pt-4 md:pt-8 pb-8 md:pb-12">
         {/* Header section */}
-        <div className="flex items-start justify-between mb-6 relative">
+        <div className="flex items-start justify-between mb-4 md:mb-6 relative">
           {/* Status indicators */}
           {isCompleted && (
             <div className="flex flex-col gap-1 absolute -top-7.5 -right-5.5">
@@ -41,23 +41,27 @@ export default function ChapterItem({
             </div>
           )}
 
-          <h3 className="text-2xl font-bold leading-tight text-gray-900">
+          <h3 className="hidden md:block text-2xl font-bold leading-tight text-gray-900">
             {title}
           </h3>
 
           {isComingSoon ? (
-            <Button className="text-sm bg-black/10 text-gray-600 font-anton">
+            <Button className="text-sm bg-black/10 text-gray-600 font-anton ml-auto md:ml-0">
               Coming Soon
             </Button>
           ) : (
             <PrimaryButton
               href={`/chapters/${sectionId}/${chapterId}/${firstIncompleteLevel}`}
-              className="text-4xl px-3 py-1"
+              className="text-4xl px-3 py-1 ml-auto md:ml-0"
             >
               PLAY
             </PrimaryButton>
           )}
         </div>
+
+        <h3 className="md:hidden text-2xl font-bold leading-tight text-gray-900 mb-2">
+          {title}
+        </h3>
 
         <div className="space-y-4">
           <p className="text-base leading-relaxed text-gray-600">

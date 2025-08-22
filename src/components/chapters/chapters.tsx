@@ -34,14 +34,14 @@ export default function Chapters() {
             onClick={() => !isOpen && toggleSection(index)}
           >
             <div className="w-full max-w-screen-xl mx-auto">
-              <div className="flex items-center gap-4 p-6">
-                <div className="flex items-center justify-center w-16 h-16 rounded-2xl text-lg font-bold bg-gradient-to-tr from-orange-400 to-primary text-white">
+              <div className="flex items-start md:items-center gap-3 md:gap-4 p-4 md:p-6">
+                <div className="flex items-center justify-center w-8 h-8 md:w-16 md:h-16 rounded-md md:rounded-2xl text-lg font-bold bg-gradient-to-tr from-orange-400 to-primary text-white">
                   {index + 1}
                 </div>
-                <h2 className="text-3xl text-gray-900 font-bold flex-1">
+                <h2 className="text-2xl md:text-3xl text-gray-900 font-bold flex-1">
                   <span className="font-normal">CHAPTER:</span> {title}
                 </h2>
-                <div className="flex items-center gap-2 text-2xl text-gray-600">
+                <div className="hidden md:flex items-center gap-2 text-xl md:text-2xl text-gray-600">
                   {!isOpen && <span>View Levels</span>}
                   <ChevronDownIcon
                     className={`w-6 h-6 transition-transform duration-500 ease-in-out ${
@@ -50,12 +50,20 @@ export default function Chapters() {
                   />
                 </div>
               </div>
+              <div className="md:hidden flex items-center justify-end gap-2 text-sm text-gray-600 px-2 pb-2">
+                {!isOpen && <span>View Levels</span>}
+                <ChevronDownIcon
+                  className={`w-3 h-3 transition-transform duration-500 ease-in-out ${
+                    isOpen ? "opacity-0" : "opacity-100"
+                  }`}
+                />
+              </div>
               <div
                 className={`transition-all duration-500 ease-in-out ${
                   isOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
-                <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mb-8 px-6 pb-6">
+                <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mb-4 md:mb-8 px-4 md:px-6 pb-4 md:pb-6">
                   {chapters.map((chapter) => (
                     <ChapterItem
                       sectionId={sectionId}
