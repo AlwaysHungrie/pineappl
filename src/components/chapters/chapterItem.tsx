@@ -6,16 +6,16 @@ import PrimaryButton from "../common/primaryCta";
 import { Button } from "../ui/button";
 
 export interface Chapter {
-  id: number;
+  chapterIndex: number;
   title: string;
-  slug: string;
+  chapterId: string;
   description: string;
   levels: number;
   isComingSoon: boolean;
 }
 
 export default function ChapterItem({ chapter }: { chapter: Chapter }) {
-  const { id, title, slug, description, levels, isComingSoon } = chapter;
+  const { title, description, levels, isComingSoon } = chapter;
   const isCompleted = false;
 
   return (
@@ -23,8 +23,6 @@ export default function ChapterItem({ chapter }: { chapter: Chapter }) {
       <div className="px-8 pt-8 pb-12">
         {/* Header section */}
         <div className="flex items-start justify-between mb-6 relative">
-          {/* Chapter number and status */}
-
           {/* Status indicators */}
           {isCompleted && (
             <div className="flex flex-col gap-1 absolute -top-7.5 -right-5.5">

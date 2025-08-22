@@ -1,75 +1,16 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import ChapterItem, { Chapter } from "./chapterItem";
 import { ChevronDownIcon } from "lucide-react";
+import { SECTIONS } from "@/content/chapters";
 
-const SECTIONS: { title: string; chapters: Chapter[] }[] = [
-  {
-    title: "Hungry for Pineapples",
-    chapters: [
-      {
-        id: 0,
-        title: "Breakfast",
-        slug: "breakfast",
-        description:
-          "Myra has just woken up. There is a loud noise coming from somewhere. It's her rumbling tummy. Help her find some delicious pineapples before the noise wakes up all the birds in her garden.",
-        levels: 11,
-        isComingSoon: false,
-      },
-      {
-        id: 1,
-        title: "Happy birthday Myra!",
-        slug: "happy-birthday",
-        description:
-          "It's Myra's birthday today. Let's wish her a happy birthday by helping her complete a special song.",
-        levels: 13,
-        isComingSoon: true,
-      },
-      {
-        id: 2,
-        title: "Art Class",
-        slug: "art-class",
-        description:
-          "Myra is an art class today. And guess what? yes she is hungry. Help her find some delicious pineapples before the paint dries.",
-        levels: 10,
-        isComingSoon: true,
-      },
-    ],
-  },
-  {
-    title: "Keeping up with the Pineapples",
-    chapters: [
-      {
-        id: 0,
-        title: "Tables",
-        slug: "tables",
-        description:
-          "Myra is learning about tables. She is trying to store information about her pineapples in a table.",
-        levels: 10,
-        isComingSoon: true,
-      },
-      {
-        id: 1,
-        title: "Tables",
-        slug: "tables",
-        description:
-          "Myra is learning about tables. She is trying to store information about her pineapples in a table.",
-        levels: 10,
-        isComingSoon: true,
-      },
-      {
-        id: 2,
-        title: "Maintainence",
-        slug: "maintainence",
-        description:
-          "Myra is learning about tables. She is trying to store information about her pineapples in a table.",
-        levels: 10,
-        isComingSoon: true,
-      },
-    ],
-  },
-];
+export interface Section {
+  sectionIndex: number;
+  sectionId: string;
+  title: string;
+  chapters: Chapter[];
+}
 
 export default function Chapters() {
   const [openSection, setOpenSection] = useState<number | null>(0);
@@ -116,7 +57,7 @@ export default function Chapters() {
               >
                 <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mb-8 px-6 pb-6">
                   {chapters.map((chapter) => (
-                    <ChapterItem key={chapter.id} chapter={chapter} />
+                    <ChapterItem key={chapter.chapterIndex} chapter={chapter} />
                   ))}
                 </div>
               </div>
