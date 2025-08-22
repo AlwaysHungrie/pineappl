@@ -11,6 +11,15 @@ import { useScreen } from "usehooks-ts";
 
 export const DIRECTIONS = ["up", "down", "left", "right"] as const;
 
+export interface LevelData {
+  ground: Set<string>;
+  bounds: Set<string>;
+  girl: string;
+  pineapples: string[];
+  instructions: string;
+  vocabulary: string[];
+}
+
 interface GameContextType {
   squareSize: number;
   isClient: boolean;
@@ -22,8 +31,10 @@ interface GameContextType {
     x: number;
     y: number;
   } | null>>;
-  bounds: Set<string>;
-  setBounds: (bounds: Set<string>) => void;
+  levelData: LevelData | null;
+  setLevelData: React.Dispatch<React.SetStateAction<LevelData | null>>;
+  pineappleCoordinates: string[] | null;
+  setPineappleCoordinates: React.Dispatch<React.SetStateAction<string[] | null>>;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -47,9 +58,8 @@ export function GameProvider({ children }: GameProviderProps) {
     y: number;
   } | null>(null);
 
-  const [bounds, setBounds] = useState<Set<string>>(
-    new Set()
-  );
+  const [levelData, setLevelData] = useState<LevelData | null>(null);
+  const [pineappleCoordinates, setPineappleCoordinates] = useState<string[] | null>(null);
 
   // Calculate square size based on screen constraints
   const squareSize = screen
@@ -73,9 +83,10 @@ export function GameProvider({ children }: GameProviderProps) {
     isClient,
     girlCoordinates,
     setGirlCoordinates,
-
-    bounds,
-    setBounds,
+    levelData,
+    setLevelData,
+    pineappleCoordinates,
+    setPineappleCoordinates,
   };
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;

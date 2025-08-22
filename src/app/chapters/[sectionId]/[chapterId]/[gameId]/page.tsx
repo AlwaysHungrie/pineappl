@@ -2,29 +2,84 @@
 
 import Navbar from "@/components/common/navbar";
 import ControlPanel from "@/components/controlPannel";
+import LevelCompleteOverlay from "@/components/gameOverlays/levelComplete";
 import Ground from "@/components/ground/ground";
 import { SECTIONS } from "@/content/chapters";
+import { LEVEL_DATA } from "@/content/levelData";
+import { useCharacter } from "@/contexts/characterContext";
 import { useGame } from "@/contexts/gameContext";
 import { useParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Home() {
-  const { isClient } = useGame();
+  const {
+    isClient,
+    setLevelData,
+    setGirlCoordinates,
+    squareSize,
+    pineappleCoordinates,
+    setPineappleCoordinates,
+  } = useGame();
+  const { setPosition } = useCharacter();
   const { sectionId, chapterId, gameId } = useParams<{
     sectionId: string;
     chapterId: string;
     gameId: string;
   }>();
 
-  if (!isClient) {
-    return null;
-  }
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [isLevelComplete, setIsLevelComplete] = useState(false);
 
   const chapter = SECTIONS.find(
     (section) => section.sectionId === sectionId
   )?.chapters.find((chapter) => chapter.chapterId === chapterId);
 
+  const levelData = LEVEL_DATA[`${sectionId}/${chapterId}/${gameId}`];
+
+  const resetGame = useCallback(() => {
+    if (levelData) {
+      console.log("levelData", levelData);
+      setLevelData(levelData);
+      setGirlCoordinates({
+        x: Number(levelData.girl.split(",")[0]),
+        y: Number(levelData.girl.split(",")[1]),
+      });
+      setPosition({
+        x: Number(levelData.girl.split(",")[0]) * squareSize,
+        y: Number(levelData.girl.split(",")[1]) * squareSize,
+      });
+      setPineappleCoordinates(levelData.pineapples);
+    }
+  }, [levelData, squareSize]);
+
+  useEffect(() => {
+    resetGame();
+  }, [resetGame]);
+
+  useEffect(() => {
+    console.log("pineappleCoordinates", pineappleCoordinates, pineappleCoordinates?.length);
+    if (pineappleCoordinates?.length === 0) {
+      setIsLevelComplete(true);
+    }
+  }, [pineappleCoordinates]);
+
+  if (!isClient) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#fffbea] via-[#FFEAEA] to-[#fff7ea]">
+      {/* Overlays */}
+      {isLevelComplete && (
+        <LevelCompleteOverlay
+          onReset={() => {
+            resetGame();
+            setIsLevelComplete(false);
+          }}
+        />
+      )}
+      {/* {isGameOver && <GameOverOverlay />} */}
+
       <Navbar
         chapter={chapter}
         sectionId={sectionId}

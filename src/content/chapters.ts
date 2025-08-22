@@ -22,7 +22,7 @@ export const SECTIONS: Section[] = [
         description:
           "Myra is collecting pineapples for her friends. She has was given instructions but they are incorrect. Help her fix them.",
         levels: 13,
-        isComingSoon: false,
+        isComingSoon: true,
       },
       {
         chapterIndex: 3,
@@ -31,7 +31,7 @@ export const SECTIONS: Section[] = [
         description:
           "It's pineapple party time! Let's make some music with pineapples.",
         levels: 10,
-        isComingSoon: false,
+        isComingSoon: true,
       },
       {
         chapterIndex: 4,
@@ -40,7 +40,7 @@ export const SECTIONS: Section[] = [
         description:
           "Pineapples are not just for eating. They can be used to make beautiful pineapple print patterns.",
         levels: 10,
-        isComingSoon: false,
+        isComingSoon: true,
       },
     ],
   },
@@ -56,7 +56,7 @@ export const SECTIONS: Section[] = [
         description:
           "There are too many pineapples. Help Myra keep a track of them by storing them in a neat table format.",
         levels: 10,
-        isComingSoon: false,
+        isComingSoon: true,
       },
       {
         chapterIndex: 2,

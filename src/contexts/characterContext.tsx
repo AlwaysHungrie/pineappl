@@ -40,8 +40,15 @@ const CharacterContext = createContext<CharacterContextType | undefined>(
 );
 
 export function CharacterProvider({ children }: { children: React.ReactNode }) {
-  const { squareSize, girlCoordinates, setGirlCoordinates, bounds, setBounds } =
-    useGame();
+  const {
+    squareSize,
+    girlCoordinates,
+    setGirlCoordinates,
+    levelData,
+    pineappleCoordinates,
+    setPineappleCoordinates,
+  } = useGame();
+  const { bounds } = levelData || {};
 
   const [position, setPosition] = useState<{
     x: number;
@@ -77,12 +84,19 @@ export function CharacterProvider({ children }: { children: React.ReactNode }) {
       let finalY = finalYCoordinate * squareSize;
 
       // colision check
-      if (bounds.has(`${finalXCoordinate},${finalYCoordinate}`)) {
+      if (bounds && bounds.has(`${finalXCoordinate},${finalYCoordinate}`)) {
         collision = "bound";
         finalX =
           currentCoordinates.x * squareSize + (squareSize / 1.75) * deltaX;
         finalY =
           currentCoordinates.y * squareSize + (squareSize / 1.75) * deltaY;
+      } else if (
+        pineappleCoordinates &&
+        pineappleCoordinates.find(
+          (pineapple) => pineapple === `${finalXCoordinate},${finalYCoordinate}`
+        )
+      ) {
+        collision = "pineapple";
       }
 
       deltaXRef.current = STEP_SIZE * deltaX;
@@ -104,6 +118,21 @@ export function CharacterProvider({ children }: { children: React.ReactNode }) {
           x: currentCoordinates.x + deltaX,
           y: currentCoordinates.y + deltaY,
         });
+      } else if (collision === "pineapple") {
+        console.log("pineapple");
+        setPineappleCoordinates((prev) => {
+          if (prev) {
+            return prev.filter(
+              (pineapple) =>
+                pineapple !== `${finalXCoordinate},${finalYCoordinate}`
+            );
+          }
+          return prev;
+        });
+        setGirlCoordinates({
+          x: currentCoordinates.x + deltaX,
+          y: currentCoordinates.y + deltaY,
+        });
       } else if (collision === "bound") {
         setGirlCoordinates({
           x: currentCoordinates.x,
@@ -115,22 +144,8 @@ export function CharacterProvider({ children }: { children: React.ReactNode }) {
         });
       }
     },
-    [girlCoordinates, bounds, squareSize]
+    [pineappleCoordinates, girlCoordinates, bounds, squareSize]
   );
-
-  useEffect(() => {
-    const initialCoordinates = {
-      x: 4,
-      y: 0,
-    };
-    const initialBounds = ["-1,0", "8,0"];
-    setGirlCoordinates(initialCoordinates);
-    setPosition({
-      x: initialCoordinates.x * squareSize,
-      y: initialCoordinates.y * squareSize,
-    });
-    setBounds(new Set(initialBounds));
-  }, [squareSize]);
 
   useEffect(() => {
     if (!stopPosition || !position) {
@@ -144,19 +159,6 @@ export function CharacterProvider({ children }: { children: React.ReactNode }) {
       onAnimationResolve.current(true);
     }
   }, [stopPosition, position]);
-
-  // useEffect(() => {
-  //   setTimeout(async () => {
-  //     console.log("move right");
-  //     // ["left", "down", "down", "right", "up", "up", "left", "right"].forEach(
-  //     //   async (direction) => {
-  //     //     await move(direction as (typeof DIRECTIONS)[number]);
-  //     //   }
-  //     // );
-  //     await move("down");
-  //     await move("down");
-  //   }, 2000);
-  // }, [move]);
 
   return (
     <CharacterContext.Provider

@@ -28,7 +28,7 @@ const ORIGINAL_HEIGHT = SPRITE_SHEET_HEIGHT / SPRITE_SHEET_ROWS;
 const SCALE = 1.6;
 
 const X_CORRECTION = 3;
-const Y_CORRECTION = -4;
+const Y_CORRECTION = -10;
 
 export default function Girl({ fixedWidth }: { fixedWidth?: number }) {
   const { squareSize: _squareSize } = useGame();
@@ -138,6 +138,16 @@ export default function Girl({ fixedWidth }: { fixedWidth?: number }) {
               ORIGINAL_HEIGHT *
               spriteSheetScale
             }px)`,
+          }}
+        />
+      </div>
+
+      <div className="absolute bottom-[-8px] w-full flex justify-center">
+        <div
+          className={`bg-black/20 rounded-[50%] translate-0.5`}
+          style={{
+            width: `${squareSize * 0.7}px`,
+            height: `${squareSize * 0.15}px`,
           }}
         />
       </div>
