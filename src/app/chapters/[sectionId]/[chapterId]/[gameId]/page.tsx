@@ -1,7 +1,7 @@
 "use client";
 
 import Navbar from "@/components/common/navbar";
-import ControlPanel from "@/components/controlPannel";
+import ControlPanel from "@/components/controlPanel/controlPanel";
 import LevelCompleteOverlay from "@/components/gameOverlays/levelComplete";
 import Ground from "@/components/ground/ground";
 import { SECTIONS } from "@/content/chapters";

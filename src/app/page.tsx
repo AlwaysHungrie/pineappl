@@ -31,7 +31,7 @@ export default function Home() {
           </div>
           <div className="flex w-[37px] h-[63px]">
           <Pineapple width={37} />
-          </div>  
+          </div>
         </div>
 
         <div className="text-center text-base sm:text-2xl">

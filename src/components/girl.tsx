@@ -50,7 +50,7 @@ export default function Girl({ fixedWidth }: { fixedWidth?: number }) {
   const animationFrameRef = useRef<number>(0);
   const lastFrameTimeFrameRef = useRef<number>(0);
 
-  const Y_CORRECTION = squareSize * -0.25 / SCALE;
+  const Y_CORRECTION = (squareSize * -0.25) / SCALE;
 
   const animatePosition = useCallback((currentTime: number) => {
     if (currentTime - lastFrameTimePositionRef.current > 1000 / MOVE_RATE) {
@@ -111,9 +111,11 @@ export default function Girl({ fixedWidth }: { fixedWidth?: number }) {
       style={{
         height: `${squareSize}px`,
         width: `${squareSize}px`,
-        transform: fixedWidth ? 'none' : `translate(${position.x + X_CORRECTION}px, ${
-          position.y + Y_CORRECTION
-        }px)`,
+        transform: fixedWidth
+          ? "none"
+          : `translate(${(position?.x ?? 0) + X_CORRECTION}px, ${
+              (position?.y ?? 0) + Y_CORRECTION
+            }px)`,
       }}
     >
       <div
@@ -143,10 +145,13 @@ export default function Girl({ fixedWidth }: { fixedWidth?: number }) {
         />
       </div>
 
-      <div className="absolute w-full flex justify-center" style={{
-        bottom: `-${squareSize/5}px`,
-        left: 2,
-      }}>
+      <div
+        className="absolute w-full flex justify-center"
+        style={{
+          bottom: `-${squareSize / 5}px`,
+          left: 2,
+        }}
+      >
         <div
           className={`bg-black/20 rounded-[50%]`}
           style={{
