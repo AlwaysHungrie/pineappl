@@ -37,6 +37,7 @@ export default function Home() {
   const levelData = LEVEL_DATA[`${sectionId}/${chapterId}/${gameId}`];
 
   const resetGame = useCallback(() => {
+    setIsLevelComplete(false);
     if (levelData) {
       console.log("levelData", levelData);
       setLevelData(levelData);
@@ -49,19 +50,29 @@ export default function Home() {
         y: Number(levelData.girl.split(",")[1]) * squareSize,
       });
       setPineappleCoordinates(levelData.pineapples);
+    } else {
+      setLevelData(null);
+      setGirlCoordinates(null);
+      setPineappleCoordinates(null);
+      setPosition(null);
     }
-  }, [levelData, squareSize]);
+  }, [squareSize, levelData]);
 
   useEffect(() => {
     resetGame();
   }, [resetGame]);
 
   useEffect(() => {
-    console.log("pineappleCoordinates", pineappleCoordinates, pineappleCoordinates?.length);
+    console.log(
+      "pineappleCoordinates",
+      pineappleCoordinates,
+      pineappleCoordinates?.length
+    );
+    if (!levelData) return;
     if (pineappleCoordinates?.length === 0) {
       setIsLevelComplete(true);
     }
-  }, [pineappleCoordinates]);
+  }, [pineappleCoordinates, levelData]);
 
   if (!isClient) {
     return null;
@@ -72,10 +83,10 @@ export default function Home() {
       {/* Overlays */}
       {isLevelComplete && (
         <LevelCompleteOverlay
-          onReset={() => {
-            resetGame();
-            setIsLevelComplete(false);
-          }}
+          onReset={resetGame}
+          nextLevel={`/chapters/${sectionId}/${chapterId}/${
+            Number(gameId) + 1
+          }`}
         />
       )}
       {/* {isGameOver && <GameOverOverlay />} */}

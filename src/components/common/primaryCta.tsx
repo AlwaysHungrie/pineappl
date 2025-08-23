@@ -17,7 +17,10 @@ export default function PrimaryButton({
     <Button
       variant="default"
       size="default"
-      className="font-anton text-4xl cursor-pointer shadow-md p-0"
+      className={cn(
+        "font-anton text-4xl cursor-pointer shadow-md p-0",
+        className
+      )}
       onClick={onClick}
       asChild={!!href}
     >
