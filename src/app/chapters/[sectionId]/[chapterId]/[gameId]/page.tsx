@@ -96,7 +96,7 @@ export default function Home() {
         sectionId={sectionId}
         currentLevel={Number(gameId)}
       />
-      <div className="w-full flex flex-col py-4 items-center justify-center h-[calc(100vh-64px)] max-w-screen-sm mx-auto">
+      <div className="w-full flex flex-col py-4 items-center justify-center h-[calc(100vh-64px)] max-w-[960px] mx-auto px-4 md:px-12">
         <Ground />
         <ControlPanel />
       </div>

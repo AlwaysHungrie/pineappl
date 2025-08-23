@@ -9,7 +9,7 @@ import VocabularPanel from "./vocabularPanel";
 import GenerateCodePanel from "./generateCodePanel";
 
 const PANELS = [
-  { id: "instructions", label: "Instructions" },
+  { id: "instructions", label: "Info" },
   { id: "play", label: "Play" },
   { id: "vocabulary", label: "Vocabulary" },
   { id: "generated code", label: "Generated Code" },
@@ -52,6 +52,9 @@ export default function ControlPanel() {
     }
 
     let buttonInactiveClasses = "bg-gray-50 hover:text-gray-800 hover:bg-white";
+    if (panel.id === "play") {
+      buttonInactiveClasses = `${buttonInactiveClasses} text-primary hover:text-primary`;
+    }
 
     return (
       <button
@@ -69,7 +72,7 @@ export default function ControlPanel() {
   };
 
   return (
-    <div className="h-[35%] mt-4 w-full max-w-4xl mx-auto flex flex-col">
+    <div className="h-[40%] mt-4 w-full max-w-[960px] mx-auto flex flex-col">
       {/* Panel Navigation */}
       <div className="flex rounded-t-2xl gap-1">
         {PANELS.map((panel) => renderPanelButton(panel))}

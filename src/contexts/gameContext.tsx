@@ -18,6 +18,7 @@ export interface LevelData {
   pineapples: string[];
   instructions: string;
   vocabulary: string[];
+  initialPrompt: string;
 }
 
 interface GameContextType {
@@ -48,7 +49,7 @@ export const COLS = 8;
 
 export const PADDING = 16;
 const MAX_SQUARE_SIZE = 64;
-const SCREEN_HEIGHT_PERCENTAGE = 0.45;
+const SCREEN_HEIGHT_PERCENTAGE = 0.4;
 
 export function GameProvider({ children }: GameProviderProps) {
   const [isClient, setIsClient] = useState(false);
