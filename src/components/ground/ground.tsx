@@ -29,7 +29,8 @@ export default function Ground() {
             <Square
               key={`${i},${j}`}
               size={squareSize}
-              index={i * COLS + j}
+              row={j}
+              col={i}
               isGround={isGround || false}
             >
               {isPineapple ? <Pineapple /> : null}

@@ -29,7 +29,7 @@ export default function Pineapple({
   const baseWidth = ORIGINAL_BASE_WIDTH * (baseHeight / ORIGINAL_BASE_HEIGHT);
 
   return (
-    <div className="absolute" style={{transform: `translateY(-8px)`}}>
+    <div className="absolute" style={{transform: `translateY(-${_width*0.2}px)`}}>
       <div
         className="relative pineapple select-none"
         style={{

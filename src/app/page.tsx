@@ -27,17 +27,11 @@ export default function Home() {
         <div className="flex gap-2 w-full items-end justify-center">
           <div className="relative flex items-center justify-center h-[98px] w-[77px]">
             <Girl fixedWidth={77} />
-            <div className="absolute bottom-[-4px] w-full flex justify-center">
-              <div
-                className={`bg-black/20 rounded-[50%] translate-0.5`}
-                style={{
-                  width: `${77 * 0.7}px`,
-                  height: `${77 * 0.15}px`,
-                }}
-              />
-            </div>
+            
           </div>
+          <div className="flex w-[37px] h-[63px]">
           <Pineapple width={37} />
+          </div>  
         </div>
 
         <div className="text-center text-base sm:text-2xl">

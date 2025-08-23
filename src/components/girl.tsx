@@ -28,7 +28,6 @@ const ORIGINAL_HEIGHT = SPRITE_SHEET_HEIGHT / SPRITE_SHEET_ROWS;
 const SCALE = 1.6;
 
 const X_CORRECTION = 3;
-const Y_CORRECTION = -10;
 
 export default function Girl({ fixedWidth }: { fixedWidth?: number }) {
   const { squareSize: _squareSize } = useGame();
@@ -50,6 +49,8 @@ export default function Girl({ fixedWidth }: { fixedWidth?: number }) {
 
   const animationFrameRef = useRef<number>(0);
   const lastFrameTimeFrameRef = useRef<number>(0);
+
+  const Y_CORRECTION = squareSize * -0.25 / SCALE;
 
   const animatePosition = useCallback((currentTime: number) => {
     if (currentTime - lastFrameTimePositionRef.current > 1000 / MOVE_RATE) {
@@ -100,7 +101,7 @@ export default function Girl({ fixedWidth }: { fixedWidth?: number }) {
     };
   }, [animatePosition, animateFrame]);
 
-  if (!position) {
+  if (!position && !fixedWidth) {
     return null;
   }
 
@@ -142,9 +143,12 @@ export default function Girl({ fixedWidth }: { fixedWidth?: number }) {
         />
       </div>
 
-      <div className="absolute bottom-[-8px] w-full flex justify-center">
+      <div className="absolute w-full flex justify-center" style={{
+        bottom: `-${squareSize/5}px`,
+        left: 2,
+      }}>
         <div
-          className={`bg-black/20 rounded-[50%] translate-0.5`}
+          className={`bg-black/20 rounded-[50%]`}
           style={{
             width: `${squareSize * 0.7}px`,
             height: `${squareSize * 0.15}px`,

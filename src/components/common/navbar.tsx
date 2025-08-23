@@ -42,7 +42,7 @@ export default function Navbar({
           "rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px",
       }}
     >
-      <div className="flex w-full max-w-screen-xl mx-auto h-16 items-center px-4">
+      <div className="flex w-full mx-auto h-16 items-center px-4">
         <Link
           href="/"
           className="flex items-center font-anton font-bold h-full hover:opacity-80 transition-opacity"
