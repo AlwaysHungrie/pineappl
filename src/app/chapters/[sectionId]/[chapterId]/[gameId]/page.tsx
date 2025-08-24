@@ -20,7 +20,7 @@ export default function Home() {
     pineappleCoordinates,
     setPineappleCoordinates,
   } = useGame();
-  const { setPosition } = useCharacter();
+  const { setPosition, deltaXRef, deltaYRef, isRunningRef } = useCharacter();
   const { sectionId, chapterId, gameId } = useParams<{
     sectionId: string;
     chapterId: string;
@@ -38,8 +38,8 @@ export default function Home() {
 
   const resetGame = useCallback(() => {
     setIsLevelComplete(false);
+    isRunningRef.current = false;
     if (levelData) {
-      console.log("levelData", levelData);
       setLevelData(levelData);
       setGirlCoordinates({
         x: Number(levelData.girl.split(",")[0]),
@@ -50,6 +50,8 @@ export default function Home() {
         y: Number(levelData.girl.split(",")[1]) * squareSize,
       });
       setPineappleCoordinates(levelData.pineapples);
+      deltaXRef.current = 0;
+      deltaYRef.current = 0;
     } else {
       setLevelData(null);
       setGirlCoordinates(null);
@@ -98,7 +100,7 @@ export default function Home() {
       />
       <div className="w-full flex flex-col py-4 items-center justify-center h-[calc(100vh-64px)] max-w-[960px] mx-auto px-4 md:px-12">
         <Ground />
-        <ControlPanel />
+        <ControlPanel resetGame={resetGame} />
       </div>
     </div>
   );

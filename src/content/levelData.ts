@@ -63,8 +63,8 @@ So here's what you need to do.
 - The available words will be provided in the *Vocabulary* section
 
 *Have fun!*`,
-    vocabulary: ["Move", "right."],
-    initialPrompt: "Move right. Move right. Move right.",
+    vocabulary: ["Move", "right.", "left.", "up.", "down."],
+    initialPrompt: "Move up. Move right. Move right. Move right.",
   },
   "hungry-for-pineapples/breakfast/2": {
     ground: new Set(["2,3", "3,3", "4,3", "5,3"]),

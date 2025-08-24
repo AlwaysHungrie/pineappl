@@ -33,6 +33,7 @@ interface CharacterContextType {
   deltaXRef: React.RefObject<number>;
   deltaYRef: React.RefObject<number>;
   move: (direction: (typeof DIRECTIONS)[number]) => Promise<void>;
+  isRunningRef: React.RefObject<boolean>;
 }
 
 const CharacterContext = createContext<CharacterContextType | undefined>(
@@ -62,6 +63,7 @@ export function CharacterProvider({ children }: { children: React.ReactNode }) {
 
   const deltaXRef = useRef<number>(0);
   const deltaYRef = useRef<number>(0);
+  const isRunningRef = useRef<boolean>(false);
 
   const onAnimationResolve = useRef<(value: unknown) => void>(() => {});
 
@@ -169,6 +171,7 @@ export function CharacterProvider({ children }: { children: React.ReactNode }) {
         deltaXRef,
         deltaYRef,
         move,
+        isRunningRef,
       }}
     >
       {children}
