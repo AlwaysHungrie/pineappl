@@ -5,15 +5,15 @@ import ControlPanel from "@/components/controlPanel/controlPanel";
 import LevelCompleteOverlay from "@/components/gameOverlays/levelComplete";
 import Ground from "@/components/ground/ground";
 import { SECTIONS } from "@/content/chapters";
-import { LEVEL_DATA } from "@/content/levelData";
 import { useCharacter } from "@/contexts/characterContext";
-import { useGame } from "@/contexts/gameContext";
+import { useGame, LevelData } from "@/contexts/gameContext";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 export default function Home() {
   const {
     isClient,
+    levelData,
     setLevelData,
     setGirlCoordinates,
     squareSize,
@@ -27,20 +27,30 @@ export default function Home() {
     gameId: string;
   }>();
 
-  const [isGameOver, setIsGameOver] = useState(false);
   const [isLevelComplete, setIsLevelComplete] = useState(false);
 
   const chapter = SECTIONS.find(
     (section) => section.sectionId === sectionId
   )?.chapters.find((chapter) => chapter.chapterId === chapterId);
 
-  const levelData = LEVEL_DATA[`${sectionId}/${chapterId}/${gameId}`];
+  useEffect(() => {
+    try {
+      const data =
+        require(`@/content/${sectionId}/${chapterId}/${gameId}`).default;
+      setLevelData(data);
+    } catch (error) {
+      console.log(
+        `Failed to load level data for ${sectionId}/${chapterId}/${gameId}:`,
+        error
+      );
+      setLevelData(null);
+    }
+  }, [sectionId, chapterId, gameId]);
 
   const resetGame = useCallback(() => {
     setIsLevelComplete(false);
     isRunningRef.current = false;
     if (levelData) {
-      setLevelData(levelData);
       setGirlCoordinates({
         x: Number(levelData.girl.split(",")[0]),
         y: Number(levelData.girl.split(",")[1]),
@@ -53,23 +63,25 @@ export default function Home() {
       deltaXRef.current = 0;
       deltaYRef.current = 0;
     } else {
-      setLevelData(null);
       setGirlCoordinates(null);
       setPineappleCoordinates(null);
       setPosition(null);
     }
-  }, [squareSize, levelData]);
+  }, [
+    squareSize,
+    levelData,
+    setGirlCoordinates,
+    setPosition,
+    setPineappleCoordinates,
+    deltaXRef,
+    isRunningRef,
+  ]);
 
   useEffect(() => {
     resetGame();
   }, [resetGame]);
 
   useEffect(() => {
-    console.log(
-      "pineappleCoordinates",
-      pineappleCoordinates,
-      pineappleCoordinates?.length
-    );
     if (!levelData) return;
     if (pineappleCoordinates?.length === 0) {
       setIsLevelComplete(true);

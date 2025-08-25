@@ -121,7 +121,6 @@ export function CharacterProvider({ children }: { children: React.ReactNode }) {
           y: currentCoordinates.y + deltaY,
         });
       } else if (collision === "pineapple") {
-        console.log("pineapple");
         setPineappleCoordinates((prev) => {
           if (prev) {
             return prev.filter(

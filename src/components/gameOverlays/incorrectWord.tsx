@@ -1,4 +1,3 @@
-import { Play } from "lucide-react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Fragment } from "react";
@@ -78,12 +77,18 @@ export default function IncorrectWord({
         </div>
 
         {/* Action Button */}
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-4">
           <Button
             className="px-8 py-6 text-2xl font-anton uppercase cursor-pointer"
             onClick={resetAndClose}
           >
-            Reset and Try Again
+            Reset Game
+          </Button>
+          <Button
+            className="px-8 py-6 text-2xl font-anton uppercase cursor-pointer"
+            onClick={onClose}
+          >
+            Try Again
           </Button>
         </div>
       </DialogContent>

@@ -38,6 +38,7 @@ export default function ControlPanel({ resetGame }: { resetGame: () => void }) {
   const [isIncorrectCommandDialogOpen, setIsIncorrectCommandDialogOpen] =
     useState(false);
   const [commands, setCommands] = useState<Command[] | null>(null);
+  const [generatedCode, setGeneratedCode] = useState("");
 
   const currentCommandRef = useRef<number | null>(null);
 
@@ -84,16 +85,18 @@ export default function ControlPanel({ resetGame }: { resetGame: () => void }) {
         };
       }
 
+      words[words.length - 1] = `${words[words.length - 1]}.`;
+
       // Move command - move(direction)
       if (words[0] === "Move" && words.length > 1) {
         const direction = words[1];
-        const isValidDirection = ["left", "right", "up", "down"].includes(
+        const isValidDirection = ["left.", "right.", "up.", "down."].includes(
           direction
         );
         return {
           sentence: sentence.trim(),
           index,
-          command: isValidDirection ? `move(${direction})` : null,
+          command: isValidDirection ? `move(${direction.slice(0, -1)})` : null,
           error: !isValidDirection,
         };
       }
@@ -118,6 +121,12 @@ export default function ControlPanel({ resetGame }: { resetGame: () => void }) {
       if (command?.command && command.command.startsWith("move(")) {
         const direction = command.command.split("(")[1].split(")")[0];
         await move(direction as "left" | "right" | "up" | "down");
+        setGeneratedCode((prev) => {
+          if (commandIndex === 0) {
+            return `move("${direction}")`;
+          }
+          return `${prev}\nmove("${direction}")`;
+        });
         currentCommandRef.current = commandIndex + 1;
       } else {
         currentCommandRef.current = null;
@@ -127,7 +136,8 @@ export default function ControlPanel({ resetGame }: { resetGame: () => void }) {
   );
 
   const generateAndRun = useCallback(async () => {
-    const isVocabularyCorrect = checkVocabulary(prompt);
+    const _prompt = prompt.trim();
+    const isVocabularyCorrect = checkVocabulary(_prompt);
     if (!isVocabularyCorrect) return;
 
     const commands = generateCommands(prompt);
@@ -178,7 +188,7 @@ export default function ControlPanel({ resetGame }: { resetGame: () => void }) {
       case "vocabulary":
         return <VocabularPanel />;
       case "generated code":
-        return <GenerateCodePanel />;
+        return <GenerateCodePanel generatedCode={generatedCode} />;
     }
   };
 
