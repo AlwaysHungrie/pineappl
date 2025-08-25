@@ -107,15 +107,7 @@ export default function Home() {
       setIsLevelComplete(true);
       setLevelStatus(`${sectionId}/${chapterId}/${gameId}`, "completed");
     }
-  }, [
-    pineappleCoordinates,
-    levelData,
-    loading,
-    sectionId,
-    chapterId,
-    gameId,
-    setLevelStatus,
-  ]);
+  }, [pineappleCoordinates, levelData, loading, sectionId, chapterId, gameId]);
 
   if (!isClient) {
     return null;

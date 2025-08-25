@@ -1,4 +1,3 @@
-import ChapterItem, { Chapter } from "@/components/chapters/chapterItem";
 import Chapters from "@/components/chapters/chapters";
 import Navbar from "@/components/common/navbar";
 import { BellRingIcon } from "lucide-react";
