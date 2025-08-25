@@ -1,4 +1,3 @@
-import { Play } from "lucide-react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Fragment } from "react";
@@ -15,7 +14,7 @@ export default function IncorrectCommand({
 }) {
   const renderPrompt = () => {
     const firstIncorrectIndex = commands.findIndex(({ error }) => error);
-    return commands.map(({ sentence, index, command, error }) => {
+    return commands.map(({ sentence, index, error }) => {
       return (
         <Fragment key={`${sentence}-${index}`}>
           <span
@@ -43,7 +42,7 @@ export default function IncorrectCommand({
       >
         <DialogHeader className="text-center gap-2">
           <DialogTitle className="text-2xl font-bold text-gray-900">
-            Hold on! That's not quite right
+            Hold on! That&apos;s not quite right
           </DialogTitle>
           <p className="text-gray-600">
             The computer could not understand a part of your instructions.

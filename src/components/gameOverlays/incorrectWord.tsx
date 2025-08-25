@@ -42,7 +42,7 @@ export default function IncorrectWord({
       >
         <DialogHeader className="text-center gap-2">
           <DialogTitle className="text-2xl font-bold text-gray-900">
-            Hold on! That's not quite right
+            Hold on! That&apos;s not quite right
           </DialogTitle>
           <p className="text-gray-600">
             It looks like you used some words in your instructions that are not

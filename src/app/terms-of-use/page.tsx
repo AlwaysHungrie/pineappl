@@ -1,6 +1,5 @@
+import { email } from "@/config";
 import ReactMarkdown from "react-markdown";
-
-export const email = "<<@todo: insert email address>>";
 
 const usagePolicyShort = `# Terms of Use
 

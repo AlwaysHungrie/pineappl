@@ -7,7 +7,8 @@ import PlanCard from "@/components/purchase/planCard";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { email } from "../terms-of-use/page";
+import { email } from "@/config";
+
 
 const faq = [
   {

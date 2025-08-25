@@ -48,14 +48,14 @@ export const LevelContextProvider = ({
   }, []);
 
   // reset all completed levels
-  const resetCompletedLevels = () => {
-    setCompletedLevels(new Set());
-    localStorage.removeItem(COMPLETED_LEVELS_STORAGE_KEY);
-  };
+  // const resetCompletedLevels = () => {
+  //   setCompletedLevels(new Set());
+  //   localStorage.removeItem(COMPLETED_LEVELS_STORAGE_KEY);
+  // };
 
-  useEffect(() => {
-    // resetCompletedLevels();
-  }, []);
+  // useEffect(() => {
+  //   resetCompletedLevels();
+  // }, []);
 
   const setLevelStatus = (
     levelId: string,

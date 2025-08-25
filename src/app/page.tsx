@@ -37,10 +37,10 @@ export default function Home() {
         <div className="text-center text-base sm:text-2xl">
           It looks like Myra is hungry.
           <br />
-          Let's find some pineapples for her!
+          Let&apos;s find some pineapples for her!
         </div>
 
-        <PrimaryButton href="/chapters">Let's go!</PrimaryButton>
+        <PrimaryButton href="/chapters">Let&apos;s go!</PrimaryButton>
       </div>
 
       {/* footer */}

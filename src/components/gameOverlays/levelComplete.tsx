@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import confetti from "./confetti.json";
 import PrimaryButton from "../common/primaryCta";
-import Link from "next/link";
 import {
   Dialog,
   DialogContent,
@@ -74,7 +73,7 @@ export default function LevelCompleteOverlay({
             </DialogTitle>
           </DialogHeader>
           <DialogDescription className="text-lg text-gray-600 mb-10 leading-relaxed max-w-md">
-            Outstanding performance! You've mastered this challenge.
+            Outstanding performance! You&apos;ve mastered this challenge.
           </DialogDescription>
 
           <div className="flex flex-col md:flex-row gap-4">

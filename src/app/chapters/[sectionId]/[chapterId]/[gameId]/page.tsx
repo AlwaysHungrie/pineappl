@@ -6,9 +6,9 @@ import LevelCompleteOverlay from "@/components/gameOverlays/levelComplete";
 import Ground from "@/components/ground/ground";
 import { SECTIONS } from "@/content/chapters";
 import { useCharacter } from "@/contexts/characterContext";
-import { useGame, LevelData } from "@/contexts/gameContext";
+import { useGame } from "@/contexts/gameContext";
 import { useLevel } from "@/contexts/levelContext";
-import { Loader, Loader2 } from "lucide-react";
+import { Loader } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -30,7 +30,7 @@ export default function Home() {
   } = useGame();
   const { setPosition, deltaXRef, deltaYRef, isRunningRef } = useCharacter();
   const router = useRouter();
-  const { completedLevels, setLevelStatus } = useLevel();
+  const { setLevelStatus } = useLevel();
 
   const [isLevelComplete, setIsLevelComplete] = useState(false);
 
@@ -43,21 +43,26 @@ export default function Home() {
   const _gameId = Number(gameId);
 
   useEffect(() => {
-    try {
-      const data =
-        require(`@/content/${sectionId}/${chapterId}/${gameId}`).default;
-      setLevelData(data);
-    } catch (error) {
-      console.log(
-        `Failed to load level data for ${sectionId}/${chapterId}/${gameId}:`,
-        error
-      );
-      router.replace(`/not-found`);
-      setLevelData(null);
-    } finally {
-      setLoading(false);
-    }
-  }, [sectionId, chapterId, gameId]);
+    const loadLevelData = async () => {
+      try {
+        const data = await import(
+          `@/content/${sectionId}/${chapterId}/${gameId}`
+        );
+        setLevelData(data.default);
+      } catch (error) {
+        console.log(
+          `Failed to load level data for ${sectionId}/${chapterId}/${gameId}:`,
+          error
+        );
+        router.replace(`/not-found`);
+        setLevelData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadLevelData();
+  }, [sectionId, chapterId, gameId, router, setLevelData]);
 
   const resetGame = useCallback(() => {
     setIsLevelComplete(false);
@@ -87,6 +92,7 @@ export default function Home() {
     setPosition,
     setPineappleCoordinates,
     deltaXRef,
+    deltaYRef,
     isRunningRef,
   ]);
 
@@ -101,7 +107,15 @@ export default function Home() {
       setIsLevelComplete(true);
       setLevelStatus(`${sectionId}/${chapterId}/${gameId}`, "completed");
     }
-  }, [pineappleCoordinates, levelData, loading]);
+  }, [
+    pineappleCoordinates,
+    levelData,
+    loading,
+    sectionId,
+    chapterId,
+    gameId,
+    setLevelStatus,
+  ]);
 
   if (!isClient) {
     return null;

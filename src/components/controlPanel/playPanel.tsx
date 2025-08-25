@@ -1,9 +1,5 @@
-import { useGame } from "@/contexts/gameContext";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { Play, RefreshCw } from "lucide-react";
-import IncorrectWord from "../gameOverlays/incorrectWord";
-import IncorrectCommand from "../gameOverlays/incorrectCommand";
 import { useCharacter } from "@/contexts/characterContext";
 
 export default function PlayPanel({

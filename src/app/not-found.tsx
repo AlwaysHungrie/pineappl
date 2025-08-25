@@ -12,10 +12,10 @@ export default function NotFound() {
             Page Not Found
           </h1>
           <h2 className="text-xl font-semibold text-gray-800 mb-3">
-            The page you're looking for doesn't exist.
+            The page you&apos;re looking for doesn&apos;t exist.
           </h2>
           <p className="text-gray-600 mb-6">
-            We are not sure what you are looking for. Let's get you back on
+            We are not sure what you are looking for. Let&apos;s get you back on
             track by starting over.
           </p>
           <Link
