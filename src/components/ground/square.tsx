@@ -4,12 +4,14 @@ export default function Square({
   row,
   col,
   children,
+  onClick,
 }: {
   size: number;
   isGround: boolean;
   row: number;
   col: number;
   children: React.ReactNode;
+  onClick?: () => void;
 }) {
   return (
     <div
@@ -18,6 +20,7 @@ export default function Square({
         width: size,
         height: size,
       }}
+      onClick={onClick}
     >
       {isGround ? (
         <div className="flex-1 bg-amber-700 flex items-center justify-center relative">

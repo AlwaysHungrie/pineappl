@@ -58,7 +58,11 @@ export default function ControlPanel({ resetGame }: { resetGame: () => void }) {
 
   const checkVocabulary = useCallback(
     (prompt: string) => {
-      const words = prompt.split(" ");
+      const words = prompt
+        .replaceAll("\n", " ")
+        .trim()
+        .split(" ")
+        .filter(Boolean);
       const incorrectWords = words.filter(
         (word) => !vocabulary?.find((v) => v === word)
       );
@@ -73,36 +77,42 @@ export default function ControlPanel({ resetGame }: { resetGame: () => void }) {
   );
 
   const generateCommands = useCallback((prompt: string) => {
-    return prompt.split(".").map((sentence, index) => {
-      const words = sentence.trim().split(" ").filter(Boolean);
+    return prompt
+      .replaceAll("\n", " ")
+      .trim()
+      .split(".")
+      .map((sentence, index) => {
+        const words = sentence.trim().split(" ").filter(Boolean);
 
-      if (words.length === 0) {
-        return {
-          sentence: sentence.trim(),
-          index,
-          command: null,
-          error: false,
-        };
-      }
+        if (words.length === 0) {
+          return {
+            sentence: sentence.trim(),
+            index,
+            command: null,
+            error: false,
+          };
+        }
 
-      words[words.length - 1] = `${words[words.length - 1]}.`;
+        words[words.length - 1] = `${words[words.length - 1]}.`;
 
-      // Move command - move(direction)
-      if (words[0] === "Move" && words.length > 1) {
-        const direction = words[1];
-        const isValidDirection = ["left.", "right.", "up.", "down."].includes(
-          direction
-        );
-        return {
-          sentence: sentence.trim(),
-          index,
-          command: isValidDirection ? `move(${direction.slice(0, -1)})` : null,
-          error: !isValidDirection,
-        };
-      }
+        // Move command - move(direction)
+        if (words[0] === "Move" && words.length > 1) {
+          const direction = words[1];
+          const isValidDirection = ["left.", "right.", "up.", "down."].includes(
+            direction
+          );
+          return {
+            sentence: sentence.trim(),
+            index,
+            command: isValidDirection
+              ? `move(${direction.slice(0, -1)})`
+              : null,
+            error: !isValidDirection,
+          };
+        }
 
-      return { sentence: sentence.trim(), index, command: null, error: true };
-    });
+        return { sentence: sentence.trim(), index, command: null, error: true };
+      });
   }, []);
 
   const executeCommand = useCallback(

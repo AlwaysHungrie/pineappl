@@ -1,16 +1,17 @@
 import { LevelData } from "@/contexts/gameContext";
 
 export default {
-  ground: new Set(["5,2","4,2","3,2","2,2"]),
-  bounds: new Set(["5,1","4,1","3,1","2,1","1,2","2,3","4,3","5,3","6,2", "3,3"]),
+  ground: new Set(["5,2","4,2","3,2","2,2","2,3","2,4","2,5"]),
+  bounds: new Set(["3,3","4,3","5,3","6,2","5,1","4,1","3,1","2,1","1,2","1,3","1,4","1,5","2,6","3,5","3,4"]),
   girl: "5,2",
-  pineapples: ["2,2"],
-  instructions: `## Eat the Pineapple
+  pineapples: ["2,2", "2,5"],
+  instructions: `## More than one Pineapple
 
-Now that you know how to move in all directions, we are removing your training wheels. 
+To finish this level, you need to eat all the pineapples.
+
 You now have the ability to move in all directions, \`Move left.\` \`Move right.\` \`Move up.\` \`Move down.\`
 
-Figure out a way to eat the pineapple.
+Figure out a way to eat both the pineapples.
 
 ---
 

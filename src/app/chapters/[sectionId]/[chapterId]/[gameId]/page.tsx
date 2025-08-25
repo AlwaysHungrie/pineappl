@@ -7,10 +7,17 @@ import Ground from "@/components/ground/ground";
 import { SECTIONS } from "@/content/chapters";
 import { useCharacter } from "@/contexts/characterContext";
 import { useGame, LevelData } from "@/contexts/gameContext";
-import { useParams } from "next/navigation";
+import { Loader, Loader2 } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 export default function Home() {
+  const { sectionId, chapterId, gameId } = useParams<{
+    sectionId: string;
+    chapterId: string;
+    gameId: string;
+  }>();
+
   const {
     isClient,
     levelData,
@@ -21,17 +28,19 @@ export default function Home() {
     setPineappleCoordinates,
   } = useGame();
   const { setPosition, deltaXRef, deltaYRef, isRunningRef } = useCharacter();
-  const { sectionId, chapterId, gameId } = useParams<{
-    sectionId: string;
-    chapterId: string;
-    gameId: string;
-  }>();
+  const router = useRouter();
 
   const [isLevelComplete, setIsLevelComplete] = useState(false);
 
-  const chapter = SECTIONS.find(
+  const [loading, setLoading] = useState(true);
+
+  const section = SECTIONS.find(
     (section) => section.sectionId === sectionId
-  )?.chapters.find((chapter) => chapter.chapterId === chapterId);
+  );
+  const chapter = section?.chapters.find(
+    (chapter) => chapter.chapterId === chapterId
+  );
+  const _gameId = Number(gameId);
 
   useEffect(() => {
     try {
@@ -43,7 +52,10 @@ export default function Home() {
         `Failed to load level data for ${sectionId}/${chapterId}/${gameId}:`,
         error
       );
+      router.replace(`/not-found`);
       setLevelData(null);
+    } finally {
+      setLoading(false);
     }
   }, [sectionId, chapterId, gameId]);
 
@@ -92,15 +104,32 @@ export default function Home() {
     return null;
   }
 
+  if (loading) {
+    return (
+      <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#fffbea] via-[#FFEAEA] to-[#fff7ea]">
+        <Navbar
+          chapter={chapter}
+          sectionId={sectionId}
+          currentLevel={_gameId}
+        />
+        <div className="flex-1 flex items-center justify-center">
+          <Loader className="w-6 h-6 animate-spin" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#fffbea] via-[#FFEAEA] to-[#fff7ea]">
       {/* Overlays */}
       {isLevelComplete && (
         <LevelCompleteOverlay
           onReset={resetGame}
-          nextLevel={`/chapters/${sectionId}/${chapterId}/${
-            Number(gameId) + 1
-          }`}
+          nextLevel={
+            _gameId < (chapter?.levels ?? -1)
+              ? `/chapters/${sectionId}/${chapterId}/${_gameId + 1}`
+              : `/chapters`
+          }
         />
       )}
       {/* {isGameOver && <GameOverOverlay />} */}
