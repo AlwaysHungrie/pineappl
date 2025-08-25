@@ -15,6 +15,7 @@ import {
 } from "../ui/drawer";
 import { Button } from "../ui/button";
 import { ArrowLeft } from "lucide-react";
+import { useLevel } from "@/contexts/levelContext";
 
 export default function Navbar({
   chapter,
@@ -26,6 +27,7 @@ export default function Navbar({
   currentLevel?: number;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { completedLevels } = useLevel();
 
   const handleLevelClick = (levelIndex: number) => {
     // Navigate to the specific level
@@ -103,7 +105,13 @@ export default function Navbar({
                             className={`w-12 h-12 rounded-full font-anton text-lg hover:bg-orange-100 hover:border-orange-300 transition-colors ${
                               currentLevel === index + 1
                                 ? "bg-orange-100 border-orange-300"
-                                : ""
+                                : completedLevels.has(
+                                    `${sectionId}/${chapter.chapterId}/${
+                                      index + 1
+                                    }`
+                                  )
+                                ? "bg-[#A0D94A]"
+                                : "bg-white"
                             }`}
                             onClick={() => handleLevelClick(index + 1)}
                           >

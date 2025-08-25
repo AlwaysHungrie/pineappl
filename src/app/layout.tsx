@@ -3,6 +3,7 @@ import { Poppins, IBM_Plex_Mono, Anton } from "next/font/google";
 import "./globals.css";
 import { GameProvider } from "@/contexts/gameContext";
 import { CharacterProvider } from "@/contexts/characterContext";
+import { LevelContextProvider } from "@/contexts/levelContext";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -40,9 +41,11 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${ibmPlexMono.variable} ${anton.variable} antialiased`}
       >
-        <GameProvider>
-          <CharacterProvider>{children}</CharacterProvider>
-        </GameProvider>
+        <LevelContextProvider>
+          <GameProvider>
+            <CharacterProvider>{children}</CharacterProvider>
+          </GameProvider>
+        </LevelContextProvider>
       </body>
     </html>
   );

@@ -36,7 +36,7 @@ export default function IncorrectCommand({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
-        className="max-w-lg border-0 shadow-xl bg-white rounded-2xl p-6 gap-0"
+        className="md:max-w-lg border-0 shadow-xl bg-white rounded-2xl p-6 gap-0"
         onPointerDownOutside={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
         showCloseButton={false}
@@ -55,7 +55,13 @@ export default function IncorrectCommand({
           Make sure all the instructions you typed follow their correct format
           as discussed in the Info sections.
         </div>
-        <div className="bg-gray-50 rounded-md border border-gray-200 p-2 mt-2 mb-8">
+        <div
+          className="bg-gray-50 rounded-md border border-gray-200 p-2 mt-2 mb-8"
+          style={{
+            maxHeight: "120px",
+            overflowY: "auto",
+          }}
+        >
           {renderPrompt()}
         </div>
 

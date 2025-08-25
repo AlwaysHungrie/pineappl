@@ -1,8 +1,19 @@
 import { LevelData } from "@/contexts/gameContext";
 
 export default {
-  ground: new Set(["5,2","4,2","3,2","2,2"]),
-  bounds: new Set(["5,1","4,1","3,1","2,1","1,2","2,3","4,3","5,3","6,2", "3,3"]),
+  ground: new Set(["5,2", "4,2", "3,2", "2,2"]),
+  bounds: new Set([
+    "5,1",
+    "4,1",
+    "3,1",
+    "2,1",
+    "1,2",
+    "2,3",
+    "4,3",
+    "5,3",
+    "6,2",
+    "3,3",
+  ]),
   girl: "5,2",
   pineapples: ["2,2"],
   instructions: `## Eat the Pineapple

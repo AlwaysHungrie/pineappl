@@ -35,7 +35,7 @@ export default function IncorrectWord({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
-        className="max-w-lg border-0 shadow-xl bg-white rounded-2xl p-6 gap-0"
+        className="md:max-w-lg border-0 shadow-xl bg-white rounded-2xl p-6 gap-0"
         onPointerDownOutside={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
         showCloseButton={false}
@@ -55,7 +55,13 @@ export default function IncorrectWord({
           Make sure you type the words exactly as they are written, including
           spellings, capital letters and full stops.
         </div>
-        <div className="bg-gray-50 rounded-md border border-gray-200 p-2 mt-2">
+        <div
+          className="bg-gray-50 rounded-md border border-gray-200 p-2 mt-2"
+          style={{
+            maxHeight: "120px",
+            overflowY: "auto",
+          }}
+        >
           {renderPrompt()}
         </div>
 
@@ -77,7 +83,7 @@ export default function IncorrectWord({
         </div>
 
         {/* Action Button */}
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-col md:flex-row justify-center gap-4">
           <Button
             className="px-8 py-6 text-2xl font-anton uppercase cursor-pointer"
             onClick={resetAndClose}

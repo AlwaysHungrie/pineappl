@@ -57,7 +57,7 @@ export default {
   ],
   instructions: `## Pineapple Bonanza
 
-Wohoo! You have made it to the last level of this section.
+Wohoo! You have made it to the last level of this chapter.
 
 To celebrate, we are having a party! Eat all the pineapples.
 

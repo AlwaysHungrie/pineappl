@@ -7,6 +7,7 @@ import Ground from "@/components/ground/ground";
 import { SECTIONS } from "@/content/chapters";
 import { useCharacter } from "@/contexts/characterContext";
 import { useGame, LevelData } from "@/contexts/gameContext";
+import { useLevel } from "@/contexts/levelContext";
 import { Loader, Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -29,14 +30,13 @@ export default function Home() {
   } = useGame();
   const { setPosition, deltaXRef, deltaYRef, isRunningRef } = useCharacter();
   const router = useRouter();
+  const { completedLevels, setLevelStatus } = useLevel();
 
   const [isLevelComplete, setIsLevelComplete] = useState(false);
 
   const [loading, setLoading] = useState(true);
 
-  const section = SECTIONS.find(
-    (section) => section.sectionId === sectionId
-  );
+  const section = SECTIONS.find((section) => section.sectionId === sectionId);
   const chapter = section?.chapters.find(
     (chapter) => chapter.chapterId === chapterId
   );
@@ -79,6 +79,7 @@ export default function Home() {
       setPineappleCoordinates(null);
       setPosition(null);
     }
+    setLoading(false);
   }, [
     squareSize,
     levelData,
@@ -95,10 +96,12 @@ export default function Home() {
 
   useEffect(() => {
     if (!levelData) return;
+    if (loading) return;
     if (pineappleCoordinates?.length === 0) {
       setIsLevelComplete(true);
+      setLevelStatus(`${sectionId}/${chapterId}/${gameId}`, "completed");
     }
-  }, [pineappleCoordinates, levelData]);
+  }, [pineappleCoordinates, levelData, loading]);
 
   if (!isClient) {
     return null;
@@ -122,16 +125,18 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#fffbea] via-[#FFEAEA] to-[#fff7ea]">
       {/* Overlays */}
-      {isLevelComplete && (
-        <LevelCompleteOverlay
-          onReset={resetGame}
-          nextLevel={
-            _gameId < (chapter?.levels ?? -1)
-              ? `/chapters/${sectionId}/${chapterId}/${_gameId + 1}`
-              : `/chapters`
-          }
-        />
-      )}
+
+      <LevelCompleteOverlay
+        isOpen={isLevelComplete}
+        onClose={() => setIsLevelComplete(false)}
+        onReset={resetGame}
+        nextLevel={
+          _gameId < (chapter?.levels ?? -1)
+            ? `/chapters/${sectionId}/${chapterId}/${_gameId + 1}`
+            : `/chapters`
+        }
+      />
+
       {/* {isGameOver && <GameOverOverlay />} */}
 
       <Navbar
@@ -141,7 +146,12 @@ export default function Home() {
       />
       <div className="w-full flex flex-col py-4 items-center justify-center h-[calc(100vh-64px)] max-w-[960px] mx-auto px-4 md:px-12">
         <Ground />
-        <ControlPanel resetGame={resetGame} />
+        <ControlPanel
+          resetLevelStatus={() =>
+            setLevelStatus(`${sectionId}/${chapterId}/${gameId}`, "incomplete")
+          }
+          resetGame={resetGame}
+        />
       </div>
     </div>
   );

@@ -1,15 +1,7 @@
 import { LevelData } from "@/contexts/gameContext";
 
 export default {
-  ground: new Set([    
-    "3,3",
-    "3,4",
-    "3,5",
-
-    "4,3",
-    "4,4",
-    "4,5",
-  ]),
+  ground: new Set(["3,3", "3,4", "3,5", "4,3", "4,4", "4,5"]),
   bounds: new Set([
     "3,2",
     "2,3",

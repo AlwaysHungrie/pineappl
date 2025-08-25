@@ -24,7 +24,13 @@ const PANELS = [
   { id: "generated code", label: "Generated Code" },
 ] as const;
 
-export default function ControlPanel({ resetGame }: { resetGame: () => void }) {
+export default function ControlPanel({
+  resetGame,
+  resetLevelStatus,
+}: {
+  resetGame: () => void;
+  resetLevelStatus: () => void;
+}) {
   const [activePanel, setActivePanel] =
     useState<(typeof PANELS)[number]["id"]>("instructions");
 
@@ -146,7 +152,9 @@ export default function ControlPanel({ resetGame }: { resetGame: () => void }) {
   );
 
   const generateAndRun = useCallback(async () => {
+    resetLevelStatus();
     const _prompt = prompt.trim();
+
     const isVocabularyCorrect = checkVocabulary(_prompt);
     if (!isVocabularyCorrect) return;
 
@@ -161,7 +169,7 @@ export default function ControlPanel({ resetGame }: { resetGame: () => void }) {
 
     currentCommandRef.current = 0;
     isRunningRef.current = true;
-  }, [checkVocabulary, generateCommands, prompt]);
+  }, [checkVocabulary, generateCommands, prompt, resetLevelStatus]);
 
   useEffect(() => {
     resetPrompt();
